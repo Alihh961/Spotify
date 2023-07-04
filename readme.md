@@ -14,6 +14,7 @@
 - symfony open:local => open symfony project in the browser after starting it
 - symfony console cache:clear
 - symfony console make:controller "NameOfController"
+- symfony console make:user => create an user
 
 
 

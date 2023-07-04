@@ -9,10 +9,10 @@
 
 <h1>Symfony Test </h1>
 
-{% if title %}
+{% if title is defined %}
     <h4> {{title}} </h4>
 {% else %}
-    <h4>No title is set.</h4>
+    <h4>No title is set or defined.</h4>
 {% endif %}
 
 
