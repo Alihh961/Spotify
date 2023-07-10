@@ -1,6 +1,7 @@
 - composer create-project symfony/website-skeleton firstProject "5.4.*"     => create a new project
 - symfony server:start  => start symfony
-- symfony serve  => start symfony
+- symfony serve  => start symfony^
+- symfony server:stop => stop symfony
 - symfony local:php:list  => list of php version in my computer
 - symfony console doctrine:database:create  => creating a database (database named in .env.local )
 - symfony console make:entity  => create a new entity 
@@ -20,7 +21,5 @@
 
 
 
-
-
 * Hint to edit the class we try to create a class of the same name then it will propose to edit the class
-* We must install annotation for symfone project using composer require annotations
+* We must install annotation for symfony project using composer require annotations

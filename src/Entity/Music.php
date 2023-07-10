@@ -19,15 +19,18 @@ class Music
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(length: 255)]
+    private ?string $duration = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateOfRelease = null;
 
-    #[ORM\ManyToMany(targetEntity: Artist::class)]
-    private Collection $artist;
+    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'music')]
+    private Collection $artists;
 
     public function __construct()
     {
-        $this->artist = new ArrayCollection();
+        $this->artists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,6 +50,18 @@ class Music
         return $this;
     }
 
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): static
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
     public function getDateOfRelease(): ?\DateTimeInterface
     {
         return $this->dateOfRelease;
@@ -62,15 +77,15 @@ class Music
     /**
      * @return Collection<int, Artist>
      */
-    public function getArtist(): Collection
+    public function getArtists(): Collection
     {
-        return $this->artist;
+        return $this->artists;
     }
 
     public function addArtist(Artist $artist): static
     {
-        if (!$this->artist->contains($artist)) {
-            $this->artist->add($artist);
+        if (!$this->artists->contains($artist)) {
+            $this->artists->add($artist);
         }
 
         return $this;
@@ -78,8 +93,13 @@ class Music
 
     public function removeArtist(Artist $artist): static
     {
-        $this->artist->removeElement($artist);
+        $this->artists->removeElement($artist);
 
         return $this;
+    }
+
+    public function __toString():string
+    {
+        return $this->getName();
     }
 }

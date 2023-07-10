@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
@@ -14,24 +16,59 @@ class Artist
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $firstName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\ManyToMany(targetEntity: Music::class, mappedBy: 'artists')]
+    private Collection $music;
+
+    #[ORM\Column(length: 255)]
     private ?string $lastName = null;
+
+    public function __construct()
+    {
+        $this->music = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->name;
+        return $this->firstName;
     }
 
-    public function setName(string $name): static
+    public function setFirstName(string $firstName): static
     {
-        $this->name = $name;
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Music>
+     */
+    public function getMusic(): Collection
+    {
+        return $this->music;
+    }
+
+    public function addMusic(Music $music): static
+    {
+        if (!$this->music->contains($music)) {
+            $this->music->add($music);
+            $music->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMusic(Music $music): static
+    {
+        if ($this->music->removeElement($music)) {
+            $music->removeArtist($this);
+        }
 
         return $this;
     }
@@ -41,10 +78,15 @@ class Artist
         return $this->lastName;
     }
 
-    public function setLastName(?string $lastName): static
+    public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
 
         return $this;
     }
+    public function __toString():string
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
+    }
+
 }
