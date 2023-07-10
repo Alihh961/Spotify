@@ -3,14 +3,18 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Type\CompleteAddressType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -39,7 +43,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
+                'mapped' => false, // mapped used to say that data wont be send to database , no column existed to this field
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -60,18 +64,32 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     
-                    // new Length([
-                    //     'min' => 6,
-                    //     'minMessage' => 'Your password should be at least {{ limit }} characters',
-                    //     // max length allowed by Symfony for security reasons
-                    //     'max' => 4096,
-                    // ]),
                     new Regex([
                         "pattern" => '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/' ,
                         "message" => 'Password format is invalid.'
                     ])
                 ],
             ])
+            ->add("gender" , ChoiceType::class ,[
+                "constraints" =>  [
+                    new NotBlank([
+                        "message" => "Field is required"
+                    ]),
+                    new Choice([
+                        "choices" => ["male" ,"female"],
+                        "message" => "Enter a valid gender"
+                    ])
+                    ],
+                "choices"=>[
+                    "Male" => "male", // Label => Value
+                    "Female" => "female"
+                ],
+                "expanded" => "true" , // render radio type buttons
+                // "multiple" => "false"// it is false in default so only one choise can be chosen
+                
+            ])
+            // ->add("test" , CompleteAddressType::class ,
+            // ["help" => "looooool"])
         ;
     }
 
