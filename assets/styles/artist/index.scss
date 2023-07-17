@@ -1,0 +1,17 @@
+table {
+    // width: 75%!important;
+    border-radius: 25px;
+}
+
+thead tr th{
+    background-color: gray!important;
+}
+thead tr th:last-child{
+
+    border-top-right-radius: 5px;
+
+}
+
+thead tr th:first-child{
+    border-top-left-radius: 5px;
+}
