@@ -1,6 +1,6 @@
 - composer create-project symfony/website-skeleton firstProject "5.4.*"     => create a new project
 - symfony server:start  => start symfony
-- symfony serve  => start symfony^
+- symfony serve  => start symfony
 - symfony server:stop => stop symfony
 - symfony local:php:list  => list of php version in my computer
 - symfony console doctrine:database:create  => creating a database (database named in .env.local )
@@ -14,12 +14,16 @@
 - php bin/console --version => check the version of symfony
 - symfony open:local => open symfony project in the browser after starting it
 - symfony console cache:clear
-- symfony console make:controller "NameOfController"
-- symfony console make:user => create an user
-
+- symfony console make:controller "NameOfController" => create a controller
+- symfony console make:user => create an user (secured class)
+- symfony console security:hash-password "password"  => hashing password manually
+- composer require symfony/rate-limiter => we run this command when we want to specify login attempts 
+- symfony console make:registration-form => creating a reg form 
+- symfony console make:crud  => create a crud of a class
 
 
 
 
 * Hint to edit the class we try to create a class of the same name then it will propose to edit the class
-* We must install annotation for symfony project using composer require annotations
+* We must install annotation for symfone project using composer require annotations
+* ->add('dateOfRelease' , DateTimeType::class,["widget" => "single_text"] ==> change the format of view of date input
