@@ -4,22 +4,51 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Register</h1>
+	<h1 class="text-center">Register</h1>
 
 
-		{{ form_errors(registrationForm) }}
+	{{ form_errors(registrationForm) }}
+	<div class="m-auto width-50 text-center">
 
-		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.email) }}
-		{{ form_row(registrationForm.userName ) }}
-		{{ form_row(registrationForm.password, {
-            label: 'Password'
-        }) }}
-		{{ form_row(registrationForm.gender ) }}
+		{{ form_start(registrationForm , {"attr" : {
+			"class" : " d-flex direction flex-column gap-3"
+		}}) }}
+
+		{{ form_label(registrationForm.email) }}
+
+		{{ form_widget(registrationForm.email , {
+			"attr" : {
+				"class" : "width-50 m-auto"
+			}
+		}) }}
 
 
-	{{ form_row(registrationForm.agreeTerms) }}
+		{{ form_label(registrationForm.userName ) }}
 
-	<button type="submit" class="btn">Register</button>
-	{{ form_end(registrationForm) }}
+		{{ form_widget(registrationForm.userName  , {
+			"attr" : {
+				"class" : "width-50 m-auto"
+		}
+
+		}) }}
+
+		{{ form_row(registrationForm.plainPassword, {
+			'label': 'Passwords',
+			'attr' : {'class' : 'toto'}
+
+		}) }}
+
+		{# {{ form_row(registrationForm.gender ) }} #}
+
+		{{ form_label(registrationForm.gender) }}
+		{{ form_widget(registrationForm.gender) }}
+
+
+		{{ form_label(registrationForm.agreeTerms) }}
+		{{ form_widget(registrationForm.agreeTerms) }}
+
+
+		<button type="submit" class="btn">Register</button>
+		{{ form_end(registrationForm) }}
+	</div>
 {% endblock %}

@@ -24,6 +24,9 @@ class Artist
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $artistImageUrl = null;
+
     public function __construct()
     {
         $this->music = new ArrayCollection();
@@ -84,9 +87,20 @@ class Artist
 
         return $this;
     }
-    public function __toString():string
+    public function __toString(): string
     {
         return $this->getFirstName() . " " . $this->getLastName();
     }
 
+    public function getArtistImageUrl(): ?string
+    {
+        return $this->artistImageUrl;
+    }
+
+    public function setArtistImageUrl(string $artistImageUrl): static
+    {
+        $this->artistImageUrl = $artistImageUrl;
+
+        return $this;
+    }
 }

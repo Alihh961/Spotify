@@ -27,14 +27,14 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email' , EmailType::class, [
+            ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email([
                         'message' => 'Invalid email Format',
                     ])
                 ],
             ])
-            ->add('userName' , TextType::class, [
+            ->add('userName', TextType::class, [
                 'constraints' => [
                     new Regex([
                         'pattern' => '/^.{3,}$/',
@@ -50,43 +50,47 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('password', RepeatedType::class ,  [
-                "type" => PasswordType::class ,
+            ->add('plainPassword', RepeatedType::class,  [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+
+                "type" => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
                 "invalid_message" => "passwords dont match",
+                'options' => ['attr' => [
+                    'class' => '',
+                ]],
 
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
                     ]),
-                    
+
                     new Regex([
-                        "pattern" => '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/' ,
+                        "pattern" => '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/',
                         "message" => 'Password format is invalid.'
                     ])
                 ],
             ])
-            ->add("gender" , ChoiceType::class ,[
+            ->add("gender", ChoiceType::class, [
                 "constraints" =>  [
                     new NotBlank([
                         "message" => "Field is required"
                     ]),
                     new Choice([
-                        "choices" => ["male" ,"female"],
+                        "choices" => ["male", "female"],
                         "message" => "Enter a valid gender"
                     ])
-                    ],
-                "choices"=>[
+                ],
+                "choices" => [
                     "Male" => "male", // Label => Value
                     "Female" => "female"
                 ],
-                "expanded" => "true" , // render radio type buttons
+                "expanded" => "true", // render radio type buttons
                 // "multiple" => "false"// it is false in default so only one choise can be chosen
-                
+
             ])
             // ->add("test" , CompleteAddressType::class ,
             // ["help" => "looooool"])

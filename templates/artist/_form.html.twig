@@ -3,15 +3,15 @@
     'class': 'm-auto col-6 text-center'
 }}) }}
 
-	<div
-		class="d-flex gap-3 justify-content-center my-3 con">
+	<div class="d-flex gap-3 justify-content-center my-3 con">
 
-		{# {{ form_label(form.firstName ,{"attr": {
-		    'class': 'm-auto col-6 text-center'
-		}} )}} #}
-		{{ form_label(form.firstName)}}
+		{{ form_row(form.firstName ,{"attr": {
+				    'class': 'm-auto col-6 text-center'
+				}}
+		)}}
+	{# {{ form_label(form.firstName)}} #}
 
-		{{ form_widget(form.firstName)}}
+		{# {{ form_widget(form.firstName)}} #}
 
 
 	</div>
@@ -28,6 +28,9 @@
 		{{ form_widget(form.music)}}
 
 	</div>
+
+	{{ form_row(form.artistImageUrl)}}
+
 
 	<button class="btn btn-success my-3">{{ button_label|default('Save') }}</button>
 	{{ form_end(form) }}
