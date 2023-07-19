@@ -31,24 +31,19 @@
 		}
 
 		}) }}
+		{# <div class="d-flex"> #}
+		{# {{ form_row(registrationForm.plainPassword) }} #}
 
-		{{ form_row(registrationForm.plainPassword, {
-			'label': 'Passwords',
-			'attr' : {'class' : 'toto'}
+		{{ form_row(registrationForm.plainPassword) }}
 
-		}) }}
+		{# </div> #}
 
 		{# {{ form_row(registrationForm.gender ) }} #}
-
 		{{ form_label(registrationForm.gender) }}
 		{{ form_widget(registrationForm.gender) }}
-
-
 		{{ form_label(registrationForm.agreeTerms) }}
 		{{ form_widget(registrationForm.agreeTerms) }}
-
-
-		<button type="submit" class="btn">Register</button>
+			<button type="submit" class="btn"> Register</button>
 		{{ form_end(registrationForm) }}
 	</div>
 {% endblock %}

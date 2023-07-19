@@ -23,8 +23,15 @@
 						<th class="bg-secondary width-50">LastName</th>
 						<td>{{ artist.lastName }}</td>
 					</tr>
+
 				</tbody>
 			</table>
+			{%  if artist.artistImageUrl %}
+				<img class="m-auto d-block" src="{{ asset('uploads/brochures/' ~ artist.artistImageUrl) }}" alt="{{ artist.firstName }}" width="150px" height="150px">
+			{% else %}
+				<h3 class="mx-auto my-5 d-block w-50 text-center">No Image to display
+				</h3>
+			{% endif %}
 		</div>
 	</div>
 

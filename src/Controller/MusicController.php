@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/music')]
 class MusicController extends AbstractController
@@ -21,6 +22,7 @@ class MusicController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'app_music_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MusicRepository $musicRepository): Response
     {
@@ -48,6 +50,7 @@ class MusicController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'app_music_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Music $music, MusicRepository $musicRepository): Response
     {
@@ -69,7 +72,7 @@ class MusicController extends AbstractController
     #[Route('/{id}', name: 'app_music_delete', methods: ['POST'])]
     public function delete(Request $request, Music $music, MusicRepository $musicRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$music->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $music->getId(), $request->request->get('_token'))) {
             $musicRepository->remove($music, true);
         }
 

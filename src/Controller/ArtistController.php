@@ -12,7 +12,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Impersonate\ImpersonateUrlGenerator;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 
 #[Route('/artist')]
@@ -28,6 +31,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGaranted("ROLE_ADMIN")]
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ArtistRepository $artistRepository, FileUploader $fileUploader): Response
     {
@@ -61,6 +65,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGaranted("ROLE_ADMIN")]
     #[Route('/{id}/edit', name: 'app_artist_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository, SluggerInterface $slugger, FileUploader $fileUploader): Response
     {

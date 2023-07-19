@@ -56,12 +56,27 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
 
                 "type" => PasswordType::class,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                // "attr" => ["class" => "d-flex"],
+                'first_options'  => [
+                    'label' => 'Password',
+                    // 'attr' => ["class" => "width-50"],
+
+                ],
+                'second_options' => [
+
+                    'label' => 'Repeat Password',
+
+
+                ],
                 "invalid_message" => "passwords dont match",
-                'options' => ['attr' => [
-                    'class' => '',
-                ]],
+                'options' => [
+                    'attr' => [
+                        'class' => 'w-50',
+                    ],
+                    "label_attr" => [
+                        "class" => "w-100"
+                    ],
+                ],
 
                 'constraints' => [
                     new NotBlank([
